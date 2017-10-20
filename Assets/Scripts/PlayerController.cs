@@ -34,8 +34,8 @@ public class PlayerController : EntityController {
     {
         base.FixedUpdate();
         Moving();
-        if (Input.GetButtonDown("Dash"))
-            Dash();
+        // if (Input.GetButtonDown("Dash"))
+            // Dash();
     }
 
 	

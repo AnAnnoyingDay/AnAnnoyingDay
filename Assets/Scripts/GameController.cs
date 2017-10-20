@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour {
 
     public static GameController instance;
     public Vector2 mapSize = new Vector2(8, 8);
+    public GameObject map;
 
     public void Awake()
     {
@@ -16,5 +17,7 @@ public class GameController : MonoBehaviour {
         }
 
         DontDestroyOnLoad(gameObject);
+
+        this.map.GetComponent<MapController>().SetupMap();
     }
 }
