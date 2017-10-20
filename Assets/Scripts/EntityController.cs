@@ -13,18 +13,9 @@ public class EntityController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
     }
 		
-    void FixedUpdate()
+    virtual protected void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector2 movement = new Vector3(moveHorizontal, moveVertical);
-        Vector3 rotation = new Vector3(0, 0, 0);
-
-        transform.Translate(movement * speed);
-
-        //Fixe la rotation
-        transform.rotation = Quaternion.Euler(rotation);
+        
     }
 
 	void setAnnimation(){
