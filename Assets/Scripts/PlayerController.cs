@@ -11,6 +11,7 @@ public class PlayerController : EntityController {
 
         float newPosX = move.x;
         float newPosY = move.y;
+        //comment
 
         if (newPosX != 0)
             newPosX = move.x > 0 ? move.x + dashLength : move.x - dashLength;
