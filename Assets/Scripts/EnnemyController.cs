@@ -6,7 +6,7 @@ public class EnnemyController : EntityController {
     
     private Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
     private Transform target;                           //Transform to attempt to move toward each turn.
-
+    public float speed = 0.15f;
 
     protected override void Start()
     {

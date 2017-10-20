@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EntityController : MonoBehaviour {
 
-    public float speed;
-
     private Rigidbody2D rb2d;
 
 
