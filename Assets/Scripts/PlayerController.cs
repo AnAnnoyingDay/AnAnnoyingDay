@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : EntityController {
 
     public float dashLength = 1f;
-    public float speed = 0.15f;
+    public float speed = 0.10f;
+
+    public Rigidbody rb;
 
     void Dash()
     {
@@ -42,19 +44,10 @@ public class PlayerController : EntityController {
             }
         }
 
-        int layerMask = LayerMask.NameToLayer("BlockingLayer");
-        RaycastHit hit;
-        
+        //rb.AddForce( new Vector3(newMoveX, newMoveY, 0), ForceMode.Force);
+        //Debug.Log("Dash");
 
-        //RaycastHit2D hit = Physics2D.Linecast(transform.position, new Vector2(newPosX, newPosY), LayerMask.NameToLayer("BlockingLayer0"));
-        if (Physics.Linecast(transform.position, new Vector2(newPosX, newPosY), out hit, layerMask))
-        {
-            Debug.Log("hitted");
-        }
-        else
-        {
-            transform.Translate(new Vector2(newMoveX, newMoveY));
-        }
+        transform.Translate(new Vector2(newMoveX, newMoveY));
 
         //rigidbody.velocity = new Vector2(rigidbody.velocity.x * 3f, rigidbody.velocity.y);
     }

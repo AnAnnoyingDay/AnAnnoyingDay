@@ -117,7 +117,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1753666510735670, guid: a62ce455055f94e71bf44aca50186960,
     type: 2}
   m_PrefabInternal: {fileID: 741416654}
---- !u!19719996 &21818049
+--- !u!19719996 &21818052
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -299,6 +299,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 50820552122246196, guid: 28b53fc28d3a140c392f0e2d919f9de1,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 0.89
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 2}
   m_IsPrefabParent: 0
@@ -307,7 +312,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1164540826163230, guid: a62ce455055f94e71bf44aca50186960,
     type: 2}
   m_PrefabInternal: {fileID: 741416654}
---- !u!19719996 &1148945350
+--- !u!19719996 &1148945353
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
