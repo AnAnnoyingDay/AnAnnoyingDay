@@ -112,6 +112,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21818048 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1753666510735670, guid: a62ce455055f94e71bf44aca50186960,
+    type: 2}
+  m_PrefabInternal: {fileID: 741416654}
+--- !u!19719996 &21818049
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 21818048}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
 --- !u!1 &199373725
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +249,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1164540826163230, guid: a62ce455055f94e71bf44aca50186960, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753666510735670, guid: a62ce455055f94e71bf44aca50186960, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a62ce455055f94e71bf44aca50186960, type: 2}
   m_IsPrefabParent: 0
@@ -276,3 +302,21 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1148945349 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1164540826163230, guid: a62ce455055f94e71bf44aca50186960,
+    type: 2}
+  m_PrefabInternal: {fileID: 741416654}
+--- !u!19719996 &1148945350
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148945349}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
