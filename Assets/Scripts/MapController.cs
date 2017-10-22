@@ -8,15 +8,19 @@ using Random = UnityEngine.Random;
 public class MapController : MonoBehaviour
 {
     public Count itemCount = new Count(1, 4);
+    public Count enemiesCount = new Count(5, 10);
     public GameObject[] enemyPrefabs;
     public GameObject[] itemPrefabs;
 
     private List<Vector2> availablePositions = new List<Vector2>();
+    private Vector2 mapSize;
     private TiledMap tileScript;
 
     private void Awake()
     {
         this.tileScript = GetComponent<TiledMap>();
+        this.mapSize = new Vector2(this.tileScript.NumTilesWide, this.tileScript.NumTilesHigh);
+
         this.SetupMap();
     }
 
@@ -24,22 +28,30 @@ public class MapController : MonoBehaviour
     {
         this.availablePositions.Clear();
 
-        Vector2 mapSize = new Vector2(this.tileScript.NumTilesWide, this.tileScript.NumTilesHigh);
-        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
         GameObject player = GameObject.FindWithTag("Player");
+        CircleCollider2D playerCollider = player.GetComponent<CircleCollider2D>();
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
 
-        for (int x = 0; x < mapSize.x; x++)
-        {
-            for (int y = 0; y < mapSize.y; y++)
-            {
+        for (int x = 0; x < this.mapSize.x; x++) {
+            for (int y = 0; y < this.mapSize.y; y++) {
                 Vector2 position = new Vector2(x, -y);
+
                 foreach (Collider2D collider in colliders) {
-                    if (!collider.OverlapPoint(position) && !player.GetComponent<CircleCollider2D>().OverlapPoint(position)) {
+                    if (!MapController.IsPositionInsideCollider(position, playerCollider)
+                        && !MapController.IsPositionInsideCollider(position, collider)) {
                         this.availablePositions.Add(position);
                     }
                 }
             }
         }
+
+        // Remove circle collider since it is only usefull to prevent enemies from spawning in an area
+        playerCollider.enabled = false;
+    }
+
+    private static bool IsPositionInsideCollider(Vector2 position, Collider2D collider)
+    {
+        return collider.OverlapPoint(position);
     }
 
     private Vector2 GetRandomPosition()
@@ -60,8 +72,7 @@ public class MapController : MonoBehaviour
     private void SpawnRandomPrefab(GameObject[] prefabs, Count count)
     {
         int prefabToSpawn = count.GetRandomValue();
-        for (int i = 0; i < prefabToSpawn; i++)
-        {
+        for (int i = 0; i < prefabToSpawn; i++) {
             int randomIndex = Random.Range(0, prefabs.Length);
             GameObject prefab = prefabs[randomIndex];
             this.SpawnPrefabAtRandom(prefab);
@@ -72,6 +83,6 @@ public class MapController : MonoBehaviour
     {
         this.FillAvailablePositions();
 
-        this.SpawnRandomPrefab(this.enemyPrefabs, new Count(50, 50));
+        this.SpawnRandomPrefab(this.enemyPrefabs, this.enemiesCount);
     }
 }
