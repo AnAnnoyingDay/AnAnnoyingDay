@@ -14,12 +14,11 @@ public class MapController : MonoBehaviour
 
     private List<Vector2> availablePositions = new List<Vector2>();
     private Vector2 mapSize;
-    private TiledMap tileScript;
 
     private void Awake()
     {
-        this.tileScript = GetComponent<TiledMap>();
-        this.mapSize = new Vector2(this.tileScript.NumTilesWide, this.tileScript.NumTilesHigh);
+        TiledMap tileScript = GetComponent<TiledMap>();
+        this.mapSize = new Vector2(tileScript.NumTilesWide, tileScript.NumTilesHigh);
 
         this.SetupMap();
     }
@@ -84,5 +83,6 @@ public class MapController : MonoBehaviour
         this.FillAvailablePositions();
 
         this.SpawnRandomPrefab(this.enemyPrefabs, this.enemiesCount);
+        this.SpawnRandomPrefab(this.itemPrefabs, this.itemCount);
     }
 }
