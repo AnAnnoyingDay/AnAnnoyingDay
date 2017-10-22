@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Tiled2Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -11,28 +12,31 @@ public class MapController : MonoBehaviour
     public GameObject[] itemPrefabs;
 
     private List<Vector2> availablePositions = new List<Vector2>();
+    private TiledMap tileScript;
+
+    private void Awake()
+    {
+        this.tileScript = GetComponent<TiledMap>();
+        this.SetupMap();
+    }
 
     private void FillAvailablePositions()
     {
         this.availablePositions.Clear();
 
-        Vector2 mapSize = new Vector2();
+        Vector2 mapSize = new Vector2(this.tileScript.NumTilesWide, this.tileScript.NumTilesHigh);
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
 
         for (int x = 0; x < mapSize.x; x++)
         {
             for (int y = 0; y < mapSize.y; y++)
             {
-                this.availablePositions.Add(new Vector2(x, y));
-            }
-        }
-
-        TilemapCollider2D[] tileMapColiders = this.GetComponentsInChildren<TilemapCollider2D>();
-        foreach (TilemapCollider2D colider in tileMapColiders)
-        {
-            Tilemap tileMap = colider.gameObject.GetComponent<Tilemap>();
-            foreach (Vector3 position in tileMap.cellBounds.allPositionsWithin)
-            {
-                this.availablePositions.Remove(position);
+                Vector2 position = new Vector2(x, -y);
+                foreach (Collider2D collider in colliders) {
+                    if (!collider.OverlapPoint(position)) {
+                        this.availablePositions.Add(position);
+                    }
+                }
             }
         }
     }
