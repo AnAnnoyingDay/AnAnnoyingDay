@@ -26,6 +26,7 @@ public class MapController : MonoBehaviour
 
         Vector2 mapSize = new Vector2(this.tileScript.NumTilesWide, this.tileScript.NumTilesHigh);
         Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+        GameObject player = GameObject.FindWithTag("Player");
 
         for (int x = 0; x < mapSize.x; x++)
         {
@@ -33,7 +34,7 @@ public class MapController : MonoBehaviour
             {
                 Vector2 position = new Vector2(x, -y);
                 foreach (Collider2D collider in colliders) {
-                    if (!collider.OverlapPoint(position)) {
+                    if (!collider.OverlapPoint(position) && !player.GetComponent<CircleCollider2D>().OverlapPoint(position)) {
                         this.availablePositions.Add(position);
                     }
                 }
@@ -71,6 +72,6 @@ public class MapController : MonoBehaviour
     {
         this.FillAvailablePositions();
 
-        this.SpawnRandomPrefab(this.enemyPrefabs, new Count(5, 10));
+        this.SpawnRandomPrefab(this.enemyPrefabs, new Count(50, 50));
     }
 }
