@@ -11,6 +11,7 @@ public class MapController : MonoBehaviour
     public Count enemiesCount = new Count(5, 10);
     public GameObject[] enemyPrefabs;
     public GameObject[] itemPrefabs;
+    public bool isBossMap = false;
 
     private List<Vector2> availablePositions = new List<Vector2>();
     private Vector2 mapSize;
@@ -65,7 +66,8 @@ public class MapController : MonoBehaviour
 
     private void SpawnPrefabAtRandom(GameObject prefab)
     {
-        Instantiate(prefab, this.GetRandomPosition(), Quaternion.identity);
+        GameObject newInstance = Instantiate(prefab, this.GetRandomPosition(), Quaternion.identity);
+        newInstance.transform.parent = this.gameObject.transform;
     }
 
     private void SpawnRandomPrefab(GameObject[] prefabs, Count count)

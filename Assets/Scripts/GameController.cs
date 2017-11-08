@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public static GameController instance;
-    public Vector2 mapSize = new Vector2(8, 8);
-    public GameObject map;
+    public List<GameObject> levels;
+    public GameObject currentLevel = null;
 
     public void Awake()
     {
@@ -16,8 +16,22 @@ public class GameController : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject);
+        this.ChangeLevel();
 
-        this.map.GetComponent<MapController>().SetupMap();
+        DontDestroyOnLoad(gameObject);
     }
+
+    protected void ChangeLevel() {
+        if (this.currentLevel != null && this.levels.Count > 0) {
+            Destroy(this.currentLevel);
+            int nextLevel = this.levels.FindIndex((obj) => obj == this.currentLevel) + 1;
+            this.currentLevel = this.levels[nextLevel];
+        } else {
+            this.currentLevel = this.levels[0];
+        }
+
+        Instantiate(this.currentLevel);
+    }
+
+
 }

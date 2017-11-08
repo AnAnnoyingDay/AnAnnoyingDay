@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4709140547402788}
-  - component: {fileID: 114302184523496452}
+  - component: {fileID: 114984324959587194}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114302184523496452
+--- !u!114 &114984324959587194
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -51,5 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff09f363fc00340d19b2d77ec8bbe49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: {x: 8, y: 8}
-  map: {fileID: 1477771454316544, guid: a62ce455055f94e71bf44aca50186960, type: 2}
+  levels:
+  - {fileID: 1130715192611286, guid: 87aabbaa9d8234dbab9d2dcd2a8dfc42, type: 2}
+  - {fileID: 1130715192611286, guid: 87aabbaa9d8234dbab9d2dcd2a8dfc42, type: 2}
+  - {fileID: 1130715192611286, guid: 87aabbaa9d8234dbab9d2dcd2a8dfc42, type: 2}
+  currentLevel: {fileID: 0}
