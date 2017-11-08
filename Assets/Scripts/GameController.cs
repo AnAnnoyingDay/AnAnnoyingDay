@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public static GameController instance;
+    public static GameController instance;  
     public List<GameObject> levels;
     public GameObject currentLevel = null;
 
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
     protected void ChangeLevel() {
         if (this.currentLevel != null && this.levels.Count > 0) {
             Destroy(this.currentLevel);
-            int nextLevel = this.levels.FindIndex((obj) => obj == this.currentLevel) + 1;
+            int nextLevel = this.levels.FindIndex(obj => obj == this.currentLevel) + 1;
             this.currentLevel = this.levels[nextLevel];
         } else {
             this.currentLevel = this.levels[0];

@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class MapController : MonoBehaviour
 {
+    [HideInInspector]
+    public Vector2 mapSize;
     public Count itemCount = new Count(1, 4);
     public Count enemiesCount = new Count(5, 10);
     public GameObject[] enemyPrefabs;
@@ -14,7 +16,6 @@ public class MapController : MonoBehaviour
     public bool isBossMap = false;
 
     private List<Vector2> availablePositions = new List<Vector2>();
-    private Vector2 mapSize;
 
     private void Awake()
     {
@@ -87,4 +88,5 @@ public class MapController : MonoBehaviour
         this.SpawnRandomPrefab(this.enemyPrefabs, this.enemiesCount);
         this.SpawnRandomPrefab(this.itemPrefabs, this.itemCount);
     }
+
 }

@@ -15,11 +15,6 @@ public static class TransformExtensions
             {
                 taggedGameObjects.Add(child.gameObject);
             }
-
-            if (child.childCount > 0)
-            {
-                taggedGameObjects.AddRange(FindObjectsWithTag(child, tag));
-            }
         }
 
         return taggedGameObjects;
