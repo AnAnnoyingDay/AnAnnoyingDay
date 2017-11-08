@@ -10,14 +10,13 @@ public class LevelController : MonoBehaviour {
 
     private Dictionary<Vector2, GameObject> levelMaps = new Dictionary<Vector2, GameObject>();
 
-	void Start () {
-        GameObject startingMap = this.GetRandomMap();
-
-        this.levelMaps.Add(new Vector2(0, 0), this.GetRandomMap());
+	void Awake () {
+        GameObject startingMap = this.SpawnRandomMapAt(new Vector2(0, 0));
 
         List<GameObject> exits = startingMap.transform.FindObjectsWithTag("Exit");
         foreach (GameObject exit in exits)
         {
+            Debug.Log(exit.transform.position);
             this.SpawnRandomMapAt(exit.transform.position);
         }
     }
@@ -28,10 +27,14 @@ public class LevelController : MonoBehaviour {
         return this.instanciableMaps[randomMapIndex];
     }
 
-    protected void SpawnRandomMapAt(Vector2 position) {
+    protected GameObject SpawnRandomMapAt(Vector2 position) {
         GameObject randomMap = this.GetRandomMap();
         this.levelMaps.Add(position, randomMap);
 
-        Instantiate(randomMap, position, Quaternion.identity);
+        GameObject newMap = Instantiate(randomMap, -position, Quaternion.identity);
+
+        newMap.name = "Map " + this.levelMaps.Count;
+
+        return newMap;
     }
 }
