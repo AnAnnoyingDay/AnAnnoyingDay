@@ -8,6 +8,7 @@ TagManager:
   - Exit
   - Enemy
   - Soda
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - 
   - BlockingLayer
-  - 
-  - 
+  - Player
+  - Ennemy
   - 
   - 
   - 
@@ -53,4 +54,7 @@ TagManager:
     locked: 0
   - name: Units
     uniqueID: 3393972251
+    locked: 0
+  - name: Obstacle
+    uniqueID: 943864095
     locked: 0

@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class EntityController : MonoBehaviour {
 
-    public float speed;
+    protected Rigidbody2D rb2d;
+    protected Coroutine attackRoutine;
+    [SerializeField]
+    protected int maxHealth = 1;
+    [SerializeField]
+    protected int currentHealth;
+    protected bool isAttacking = false;
 
-    private Rigidbody2D rb2d;
 
-    void Start()
+    virtual protected void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
     }
 		
     virtual protected void FixedUpdate()
@@ -21,4 +27,21 @@ public class EntityController : MonoBehaviour {
 	void setAnnimation(){
 		//TODO
 	}
+
+    public void takeDamage(int dmg) {
+        this.currentHealth -= dmg;
+        this.rb2d.AddForce(new Vector2()));
+        Debug.Log("Player lost " + dmg + " health point");
+        if (this.currentHealth <= 0)
+        {
+            Debug.Log("Player died !");
+        }
+    }
+
+    public void StopAttack(){
+        if(attackRoutine != null){
+            StopCoroutine(attackRoutine);
+            isAttacking = false;
+        }
+    }
 }
