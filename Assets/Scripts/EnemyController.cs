@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemyController : EntityController {
+public class EnemyController : EntityController {
     
     private Animator animator;
     private GameObject hitBox;
