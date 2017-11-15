@@ -23,7 +23,6 @@ public class LevelController : MonoBehaviour
         foreach (GameObject exit in exits)
         {
             this.SpawnRandomMapCloseToExit(exit);
-            break;
         }
     }
 
@@ -41,6 +40,8 @@ public class LevelController : MonoBehaviour
 
         GameObject newMap = Instantiate(randomMap, position, Quaternion.identity);
         newMap.name = "Map " + this.levelMaps.Count;
+
+        newMap.transform.SetParent(this.transform);
 
         return newMap;
     }
