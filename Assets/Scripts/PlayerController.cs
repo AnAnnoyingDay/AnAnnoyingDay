@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : EntityController {
 
+    public float speed = 0.1f;
+
     void Dash()
     {
         int dashLength = 1;
@@ -27,7 +29,7 @@ public class PlayerController : EntityController {
 
         Vector2 movement = new Vector3(moveHorizontal, moveVertical);
         Vector3 rotation = new Vector3(0, 0, 0);
-        transform.Translate(movement * speed);
+        transform.Translate(movement * this.speed * Time.deltaTime);
     }
 
     protected override void FixedUpdate()

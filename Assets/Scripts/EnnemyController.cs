@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class EnnemyController : EntityController {
     
-    private Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
-    private Transform target;                           //Transform to attempt to move toward each turn.
+    private Animator animator;
+    private GameObject hitBox;
+    private float timeToHit;
+    [SerializeField]
+    private int damage;
+    [SerializeField]
+    private float coolDown = 10f;
+
 
 
     protected override void Start()
@@ -14,36 +20,30 @@ public class EnnemyController : EntityController {
 
         //Get and store a reference to the attached Animator component.
         animator = GetComponent<Animator>();
-
-        //Find the Player GameObject using it's tag and store a reference to its transform component.
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-
+        //hitBox = GetComponent("HitBox");
+        timeToHit = Time.time + coolDown;
+        damage = 1;
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        this.tryToAction();
     }
 
-    public void tryToAction()
+    void OnCollisionEnter2D(Collision2D coll)
     {
-        //If the difference in positions is approximately zero (Epsilon) do the following:
-        if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon){
-            this.attack();
-        } else {
-            this.move();
+        if (coll.gameObject.tag == "Player"){
+            Debug.Log("Colliding with a player");
+            attackRoutine = StartCoroutine(Attack(coll));
         }
-
     }
 
-    public void attack(){
-        //TODO
+    private IEnumerator Attack(Collision2D coll){
+        isAttacking = true;
+        Debug.Log("Attacking player");
+        coll.gameObject.GetComponentInParent<PlayerController>().takeDamage(this.damage);
+        StopAttack();
+        yield return new WaitForSeconds(1);
     }
 
-    public void move()
-    {
-        Vector2 movement = new Vector2(target.position.y, target.position.x);
-        transform.Translate(movement * speed);
-    }
 }
