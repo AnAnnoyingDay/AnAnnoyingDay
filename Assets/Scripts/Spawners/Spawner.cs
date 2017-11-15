@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public abstract class Spawner : MonoBehaviour {
+public abstract class Spawner : MonoBehaviour
+{
 
     protected MapController map;
 

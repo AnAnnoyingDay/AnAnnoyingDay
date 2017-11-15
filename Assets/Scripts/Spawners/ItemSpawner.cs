@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ItemSpawner : Spawner {
+public class ItemSpawner : Spawner
+{
 
-    protected override GameObject[] GetPrefabs() {
+    protected override GameObject[] GetPrefabs()
+    {
         return this.map.itemPrefabs;
     }
 }

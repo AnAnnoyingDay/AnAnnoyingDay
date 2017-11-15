@@ -6,21 +6,21 @@ using Random = UnityEngine.Random;
 public class LevelController : MonoBehaviour
 {
     public GameObject[] prefabMaps;
-    public int numberOfMaps;
+    public Count numberOfMaps = new Count(5, 8);
 
     private Dictionary<Vector2, GameObject> levelMaps = new Dictionary<Vector2, GameObject>();
 
     void Awake()
     {
-        this.numberOfMaps = new Count(5, 8).GetRandomValue();
-
         GameObject startingMap = this.SpawnRandomMapAt(new Vector2(0, 0));
 
         this.SetupMap(startingMap);
     }
 
-    protected void SetupMap(GameObject sourceMap) {
-        if (this.numberOfMaps == this.levelMaps.Count) {
+    protected void SetupMap(GameObject sourceMap)
+    {
+        if (this.numberOfMaps.GetFixedRandomValue() == this.levelMaps.Count)
+        {
             return;
         }
 
@@ -37,7 +37,8 @@ public class LevelController : MonoBehaviour
         List<GameObject> exits = map.transform.FindObjectsWithTag("Exit");
 
         // Ensure we keep at least 1 exit
-        if (exits.Count == 1) {
+        if (exits.Count == 1)
+        {
             return exits;
         }
 
@@ -81,23 +82,23 @@ public class LevelController : MonoBehaviour
         switch (exitDirection)
         {
             case Direction.TOP:
-                positionToSpawnNewMap = new Vector2(exit.transform.position.x, sourceMapSize.y);
+                positionToSpawnNewMap = new Vector2(0, sourceMapSize.y);
                 break;
 
             case Direction.RIGHT:
-                positionToSpawnNewMap = new Vector2(-sourceMapSize.x, exit.transform.position.y);
+                positionToSpawnNewMap = new Vector2(-sourceMapSize.x, 0);
                 break;
 
             case Direction.BOTTOM:
-                positionToSpawnNewMap = new Vector2(exit.transform.position.x, -sourceMapSize.y);
+                positionToSpawnNewMap = new Vector2(0, -sourceMapSize.y);
                 break;
 
             case Direction.LEFT:
-                positionToSpawnNewMap = new Vector2(sourceMapSize.x, -exit.transform.position.y);
+                positionToSpawnNewMap = new Vector2(sourceMapSize.x, 0);
                 break;
         }
-        Debug.Log(positionToSpawnNewMap);
-        return this.SpawnRandomMapAt(positionToSpawnNewMap);
+
+        return this.SpawnRandomMapAt(positionToSpawnNewMap + ((Vector2)exit.transform.position) - positionToSpawnNewMap);
     }
 
     protected MapController GetMapController(GameObject mapObject)

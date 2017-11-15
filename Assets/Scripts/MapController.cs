@@ -37,7 +37,8 @@ public class MapController : MonoBehaviour
         this.CallSpawner(itemSpawners, this.itemCount);
     }
 
-    protected void CallSpawner(Spawner[] spawners, Count nbToSpawn) {
+    protected void CallSpawner(Spawner[] spawners, Count nbToSpawn)
+    {
         if (spawners.Length == 0) return;
 
         for (int i = 0; i < nbToSpawn.GetRandomValue(); i++)
