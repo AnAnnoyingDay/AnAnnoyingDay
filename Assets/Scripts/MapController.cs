@@ -8,7 +8,7 @@ public class MapController : MonoBehaviour
     [HideInInspector]
     public Vector2 mapSize;
     public Count itemCount = new Count(1, 4);
-    public Count enemiesCount = new Count(50, 90);
+    public Count enemiesCount = new Count(6, 10);
     public GameObject[] enemyPrefabs;
     public GameObject[] itemPrefabs;
     public bool isBossMap = false;

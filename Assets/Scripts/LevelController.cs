@@ -6,24 +6,50 @@ using Random = UnityEngine.Random;
 public class LevelController : MonoBehaviour
 {
     public GameObject[] prefabMaps;
-    public Count numberOfMaps = new Count(5, 8);
+    public int numberOfMaps;
 
     private Dictionary<Vector2, GameObject> levelMaps = new Dictionary<Vector2, GameObject>();
 
     void Awake()
     {
+        this.numberOfMaps = new Count(5, 8).GetRandomValue();
+
         GameObject startingMap = this.SpawnRandomMapAt(new Vector2(0, 0));
 
-        // For each exit:
-        //      Get the exit (#1) direction
-        //      Find a map which has a door at the opposite of exit #1
-        //      Instanciate the new map at the opposite of the exit #1 direction
-        //      --> the two exits should be glued
-        List<GameObject> exits = startingMap.transform.FindObjectsWithTag("Exit");
-        foreach (GameObject exit in exits)
-        {
-            this.SpawnRandomMapCloseToExit(exit);
+        this.SetupMap(startingMap);
+    }
+
+    protected void SetupMap(GameObject sourceMap) {
+        if (this.numberOfMaps == this.levelMaps.Count) {
+            return;
         }
+
+        List<GameObject> randomExits = this.SelectRandomExits(sourceMap);
+        foreach (GameObject exit in randomExits)
+        {
+            // Recursive call to build the level with exits and stuff...
+            this.SetupMap(this.SpawnRandomMapCloseToExit(exit));
+        }
+    }
+
+    protected List<GameObject> SelectRandomExits(GameObject map)
+    {
+        List<GameObject> exits = map.transform.FindObjectsWithTag("Exit");
+
+        // Ensure we keep at least 1 exit
+        if (exits.Count == 1) {
+            return exits;
+        }
+
+        int exitsToRemove = Random.Range(1, exits.Count);
+        for (int i = 0; i < exitsToRemove; i++)
+        {
+            int removedIndex = Random.Range(0, exits.Count);
+            Destroy(exits[removedIndex]);
+            exits.RemoveAt(removedIndex);
+        }
+
+        return exits;
     }
 
     protected GameObject GetRandomMap()
@@ -40,7 +66,6 @@ public class LevelController : MonoBehaviour
 
         GameObject newMap = Instantiate(randomMap, position, Quaternion.identity);
         newMap.name = "Map " + this.levelMaps.Count;
-
         newMap.transform.SetParent(this.transform);
 
         return newMap;
@@ -56,26 +81,27 @@ public class LevelController : MonoBehaviour
         switch (exitDirection)
         {
             case Direction.TOP:
-                positionToSpawnNewMap = new Vector2(0, sourceMapSize.y);
+                positionToSpawnNewMap = new Vector2(exit.transform.position.x, sourceMapSize.y);
                 break;
 
             case Direction.RIGHT:
-                positionToSpawnNewMap = new Vector2(-sourceMapSize.x, 0);
+                positionToSpawnNewMap = new Vector2(-sourceMapSize.x, exit.transform.position.y);
                 break;
 
             case Direction.BOTTOM:
-                positionToSpawnNewMap = new Vector2(0, -sourceMapSize.y);
+                positionToSpawnNewMap = new Vector2(exit.transform.position.x, -sourceMapSize.y);
                 break;
 
             case Direction.LEFT:
-                positionToSpawnNewMap = new Vector2(sourceMapSize.x, 0);
+                positionToSpawnNewMap = new Vector2(sourceMapSize.x, -exit.transform.position.y);
                 break;
         }
-
+        Debug.Log(positionToSpawnNewMap);
         return this.SpawnRandomMapAt(positionToSpawnNewMap);
     }
 
-    protected MapController GetMapController(GameObject mapObject) {
+    protected MapController GetMapController(GameObject mapObject)
+    {
         return mapObject.GetComponent<MapController>();
     }
 }

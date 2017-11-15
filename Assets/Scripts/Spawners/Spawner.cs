@@ -19,7 +19,7 @@ public abstract class Spawner : MonoBehaviour {
 
         instance.transform.SetParent(map.gameObject.transform);
 
-
+        Destroy(this);
 
         return instance;
     }
