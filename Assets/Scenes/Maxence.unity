@@ -304,6 +304,11 @@ Prefab:
       propertyPath: m_LinearDrag
       value: 0.89
       objectReference: {fileID: 0}
+    - target: {fileID: 114732997535765070, guid: 28b53fc28d3a140c392f0e2d919f9de1,
+        type: 2}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 2}
   m_IsPrefabParent: 0
