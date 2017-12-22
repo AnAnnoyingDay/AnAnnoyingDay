@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 
 public abstract class Spawner : MonoBehaviour
 {
-
     protected MapController map;
 
     protected abstract GameObject[] GetPrefabs();
@@ -15,6 +14,10 @@ public abstract class Spawner : MonoBehaviour
         this.map = map;
 
         GameObject[] prefabs = this.GetPrefabs();
+
+        if (prefabs.Length == 0)
+            return null;
+
         GameObject selectedPrefab = prefabs[Random.Range(0, prefabs.Length)];
         GameObject instance = Instantiate(selectedPrefab, this.transform.position, Quaternion.identity);
 

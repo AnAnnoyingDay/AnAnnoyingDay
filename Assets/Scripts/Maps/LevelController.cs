@@ -13,13 +13,17 @@ public class LevelController : MonoBehaviour
 
     void Awake()
     {
-        this.mapGenerator = new GridMapGenerator(this.numberOfMaps.GetFixedRandomValue());  
+        this.mapGenerator = new GridMapGenerator(this.numberOfMaps.GetFixedRandomValue());
 
         foreach(BoxController box in this.mapGenerator.finalGrid) {
             Vector2 boxPos = new Vector2(box.X, box.Y);
             GameObject map = this.SpawnRandomMapAt(boxPos);
 
             this.RemoveUnusedExits(box, map);
+
+            if (!boxPos.Equals(this.mapGenerator.GetStartCoordinates())) {
+                this.RemoveUnusedPlayers(map);
+            }
         }
     }
 
@@ -44,6 +48,14 @@ public class LevelController : MonoBehaviour
             {
                 Destroy(exit);
             }
+        }
+    }
+
+    protected void RemoveUnusedPlayers(GameObject map) {
+        List<GameObject> players = map.transform.FindObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            Destroy(player);
         }
     }
 

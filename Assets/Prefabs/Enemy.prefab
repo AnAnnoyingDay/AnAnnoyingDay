@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 212677920895564110}
   - component: {fileID: 61540471948734586}
   - component: {fileID: 50621783171746886}
-  - component: {fileID: 114434287779813046}
+  - component: {fileID: 114105253905429074}
   - component: {fileID: 114362851969647684}
   - component: {fileID: 114248490338293918}
   - component: {fileID: 114466389112830256}
@@ -134,7 +134,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -143,6 +143,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114105253905429074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232062595847294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffeee8783eb5453991bf84a15816383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.1
+  isAttacking: 0
+  damage: 0
+  coolDown: 10
 --- !u!114 &114248490338293918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,22 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
---- !u!114 &114434287779813046
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1232062595847294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcb40b46549de4c51aaee96d4bb4cee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 0
-  damage: 0
-  coolDown: 10
+  target: {fileID: 4914517585748240}
 --- !u!114 &114466389112830256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,7 +395,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611035664995252}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5999985, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0074338117, y: 0.0013759425, z: 1}
   m_Children: []
   m_Father: {fileID: 224204617213861850}
@@ -413,7 +413,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1153668459814206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5999985, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.007665818, y: 0.0015411584, z: 1}
   m_Children: []
   m_Father: {fileID: 224204617213861850}

@@ -43,6 +43,11 @@ public class GridMapGenerator
         //DisplayFinalGrid();
     }
 
+    public Vector2 GetStartCoordinates()
+    {
+        return new Vector2((int)this.gridWidth / 2, (int)this.gridHeight / 2);
+    }
+
     // Set the start Box and create all Box
     public void InitGrid()
     {
@@ -67,7 +72,7 @@ public class GridMapGenerator
 
         // Init the started Box
         System.Random rand = new System.Random();
-        Vector2Int start = new Vector2Int((int) this.gridWidth / 2, (int) this.gridHeight / 2);
+        Vector2Int start = new Vector2Int((int)this.GetStartCoordinates().x, (int)this.GetStartCoordinates().y);
         bossBox = start;
         Grid[start.x, start.y].X = start.x;
         Grid[start.x, start.y].Y = start.y;
