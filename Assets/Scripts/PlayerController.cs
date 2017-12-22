@@ -83,6 +83,15 @@ public class PlayerController : EntityController {
         // Dash();
     }
 
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == "Exit")
+        {
+            Direction exitDirection = collider.GetComponent<HasDirection>().direction;
+            GameController.instance.ChangeMap(exitDirection);
+        }
+    }
+
 	
 	// Update is called once per frame
 	void Update () {

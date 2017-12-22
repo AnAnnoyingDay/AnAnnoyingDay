@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,5 +41,8 @@ public class GameController : MonoBehaviour
         Instantiate(this.currentLevel);
     }
 
-
+    public void ChangeMap(Direction exitDirection)
+    {
+        throw new NotImplementedException();
+    }
 }
