@@ -18,11 +18,18 @@ public class LevelController : MonoBehaviour
         foreach(BoxController box in this.mapGenerator.finalGrid) {
             Vector2 boxPos = new Vector2(box.X, box.Y);
             GameObject map = this.SpawnRandomMapAt(boxPos);
+            if (box.IsBoss) {
+                map.name += " Boss";
+            } else if (box.IsKey){
+                map.name += " Key";
+            } else if (boxPos.Equals(this.mapGenerator.GetStartCoordinates())) {
+                map.name += " Start";
+            }
 
             this.RemoveUnusedExits(box, map);
 
             if (!boxPos.Equals(this.mapGenerator.GetStartCoordinates())) {
-                this.RemoveUnusedPlayers(map);
+                this.DisableUnusedPlayers(map);
             }
         }
     }
@@ -51,11 +58,11 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    protected void RemoveUnusedPlayers(GameObject map) {
+    protected void DisableUnusedPlayers(GameObject map) {
         List<GameObject> players = map.transform.FindObjectsWithTag("Player");
 
         foreach (GameObject player in players) {
-            Destroy(player);
+            player.SetActive(false);
         }
     }
 
