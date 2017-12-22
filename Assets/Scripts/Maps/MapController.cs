@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class MapController : MonoBehaviour
 {
-    public Vector2 mapSize;
+    public Vector2 mapSize = new Vector2(32, 16);
     public Count itemCount = new Count(1, 4);
     public Count enemiesCount = new Count(6, 10);
     public GameObject[] enemyPrefabs;

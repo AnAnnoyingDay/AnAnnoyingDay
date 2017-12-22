@@ -93,15 +93,14 @@ public class PlayerController : EntityController {
     {
         if (isMoving)
         {
-            Debug.Log("Walk");
+            //Debug.Log("Walk");
             ActivateLayer("WalkLayer");
             myAnimator.SetFloat("x", direction.x);
             myAnimator.SetFloat("y", direction.y);
         }
         else
         {
-            Debug.Log("Idle");
-
+            //Debug.Log("Idle");
             ActivateLayer("IdleLayer");
         }
     }

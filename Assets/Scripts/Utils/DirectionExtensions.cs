@@ -1,3 +1,5 @@
+using UnityEngine;
+
 static class DirectionExtensions
 {
     public static Direction Inverse(this Direction self)
@@ -15,5 +17,14 @@ static class DirectionExtensions
             default:
                 return Direction.UNDEFINED;
         }
+    }
+
+    public static Direction ToDirection(this Vector2 self)
+    {
+        if (self.y > 0) return Direction.TOP;
+        if (self.y < 0) return Direction.BOTTOM;
+        if (self.x > 0) return Direction.RIGHT;
+
+        return Direction.LEFT;
     }
 }

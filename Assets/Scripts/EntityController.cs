@@ -21,7 +21,7 @@ public class EntityController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         currentHealth = maxHealth;
-        Debug.Log("Player health point : " + this.currentHealth);
+        //Debug.Log("Player health point : " + this.currentHealth);
     }
 		
     

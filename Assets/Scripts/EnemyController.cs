@@ -53,7 +53,6 @@ public class EnemyController : EntityController {
 
     private IEnumerator ContinuousAttack(){
         isAttacking = false;
-        Debug.Log("Attacking player");
         yield return new WaitForSeconds(3);
         if (inPlayerCollider)
         {
@@ -62,7 +61,6 @@ public class EnemyController : EntityController {
         }
         else if (!inPlayerCollider)
         {
-            Debug.Log("I'm breakiiiiiiiiing !");
             yield break;
         }
     }

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4926982994735504}
-  - component: {fileID: 114001165272728496}
+  - component: {fileID: 114346565328102830}
   m_Layer: 0
   m_Name: Level1
   m_TagString: Untagged
@@ -40,19 +40,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114001165272728496
+--- !u!114 &114346565328102830
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918288046521088}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c0dcb825bab45d6b12c90c638d2f88, type: 3}
+  m_Script: {fileID: 11500000, guid: ddabcc7a31eb348fb84d38e9d98486b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefabMaps:
-  - {fileID: 1130715192611286, guid: 87aabbaa9d8234dbab9d2dcd2a8dfc42, type: 2}
+  - {fileID: 1852883079172318, guid: 6c58356ef70cc4cd3af8db9aabf24e60, type: 2}
   numberOfMaps:
-    minimum: 2
-    maximum: 3
+    minimum: 5
+    maximum: 8
