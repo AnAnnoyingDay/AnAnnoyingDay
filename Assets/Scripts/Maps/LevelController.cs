@@ -82,7 +82,7 @@ public class LevelController : MonoBehaviour
 
         Vector2 spawnPosition = new Vector2(position.x * mapSize.x, position.y * mapSize.y);
         GameObject newMap = Instantiate(randomMap, spawnPosition, Quaternion.identity);
-        newMap.name = "Map " + this.levelMaps.Count + " ("+position.x+", " + position.y + ")";
+        newMap.name = "Map " + this.levelMaps.Count + " (" + position.x + ", " + position.y + ")";
         newMap.transform.SetParent(this.transform);
 
         this.levelMaps.Add(position, newMap);

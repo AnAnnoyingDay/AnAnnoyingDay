@@ -9,8 +9,11 @@ public class MapController : MonoBehaviour
     public Count enemiesCount = new Count(6, 10);
     public GameObject[] enemyPrefabs;
     public GameObject[] itemPrefabs;
-    public bool isBossMap = false;
-    public Vector2 positionOnLevel;
+
+    [HideInInspector]
+    public bool isBoss = false;
+    [HideInInspector]
+    public bool isKey = false;
 
     private List<Vector2> availablePositions = new List<Vector2>();
 
@@ -32,9 +35,11 @@ public class MapController : MonoBehaviour
     {
         Spawner[] enemySpawners = GetComponentsInChildren<EnemySpawner>();
         Spawner[] itemSpawners = GetComponentsInChildren<ItemSpawner>();
+        Spawner[] keySpawner = GetComponentsInChildren<KeySpawner>();
 
         this.CallSpawner(enemySpawners, this.enemiesCount);
         this.CallSpawner(itemSpawners, this.itemCount);
+        this.CallSpawner(keySpawner, new Count(1, 1));
     }
 
     protected void CallSpawner(Spawner[] spawners, Count nbToSpawn)

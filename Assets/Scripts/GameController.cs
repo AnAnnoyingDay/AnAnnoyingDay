@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
         Vector2 newPosition = positionCurrentMap + exitDirection.ToVector();
 
         GameObject newMap = levelController.levelMaps[newPosition];
-        GameController.instance.GetPlayer().transform.parent = newMap.transform;
+        GameController.instance.GetPlayer().transform.SetParent(newMap.transform);
 
         GameObject newExit = null;
         foreach (var exit in newMap.transform.FindObjectsWithTag("Exit"))

@@ -9,9 +9,17 @@ public abstract class Spawner : MonoBehaviour
 
     protected abstract GameObject[] GetPrefabs();
 
+    protected virtual bool ShouldHandle()
+    {
+        return true;
+    }
+
     public GameObject Spawn(MapController map)
     {
         this.map = map;
+
+        if (!this.ShouldHandle())
+            return null;
 
         GameObject[] prefabs = this.GetPrefabs();
 
