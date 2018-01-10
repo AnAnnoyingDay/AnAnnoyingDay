@@ -103,28 +103,18 @@ public class LevelController : MonoBehaviour
     public void MovePlayerToMap(Direction direction)
     {
         Vector2 positionCurrentMap = this.levelMaps.FirstOrDefault(x => x.Value.Equals(this.GetCurrentMap())).Key;
-
         Vector2 newPosition = positionCurrentMap + direction.ToVector();
 
-        Debug.Log("----- POS -----");
-        Debug.Log(positionCurrentMap);
-        Debug.Log(newPosition);
-        Debug.Log("------ END POS -----");
-
         GameObject newMap = this.levelMaps[newPosition];
-
         GameController.instance.GetPlayer().transform.parent = newMap.transform;
 
         GameObject newExit = null;
-        Debug.Log("---- EXITS MAP " + newMap.name + "----");
         foreach (var exit in newMap.transform.FindObjectsWithTag("Exit"))
         {
-            Debug.Log(exit.GetComponent<HasDirection>().direction);
             if (exit.GetComponent<HasDirection>().direction.Equals(direction.Inverse())) {
                 newExit = exit;
             }
         }
-        Debug.Log("---- FIN EXITS ----");
 
         Vector2 teleportLocation = (Vector2) newExit.transform.position + direction.ToVector() * 1.4f;
 

@@ -23,7 +23,6 @@ static class DirectionExtensions
     {
         float angle = self.Angle();
 
-        Debug.Log(angle);
         if (angle == 0)
             return Direction.TOP;
         if (angle == 90)
