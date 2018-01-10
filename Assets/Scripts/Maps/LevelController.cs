@@ -94,31 +94,4 @@ public class LevelController : MonoBehaviour
     {
         return mapObject.GetComponent<MapController>();
     }
-
-    public GameObject GetCurrentMap()
-    {
-        return GameController.instance.GetPlayer().transform.parent.gameObject;
-    }
-
-    public void MovePlayerToMap(Direction direction)
-    {
-        Vector2 positionCurrentMap = this.levelMaps.FirstOrDefault(x => x.Value.Equals(this.GetCurrentMap())).Key;
-        Vector2 newPosition = positionCurrentMap + direction.ToVector();
-
-        GameObject newMap = this.levelMaps[newPosition];
-        GameController.instance.GetPlayer().transform.parent = newMap.transform;
-
-        GameObject newExit = null;
-        foreach (var exit in newMap.transform.FindObjectsWithTag("Exit"))
-        {
-            if (exit.GetComponent<HasDirection>().direction.Equals(direction.Inverse())) {
-                newExit = exit;
-            }
-        }
-
-        Vector2 teleportLocation = (Vector2) newExit.transform.position + direction.ToVector() * 1.4f;
-
-        GameController.instance.GetPlayer().transform.position = teleportLocation;
-
-    }
 }

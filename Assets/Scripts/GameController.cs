@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -41,6 +42,11 @@ public class GameController : MonoBehaviour
         this.currentLevel = Instantiate(this.currentLevel);
     }
 
+    public GameObject GetCurrentMap()
+    {
+        return this.GetPlayer().transform.parent.gameObject;
+    }
+
     public GameObject GetPlayer()
     {
         return GameObject.FindWithTag("Player");
@@ -48,6 +54,25 @@ public class GameController : MonoBehaviour
 
     public void ChangeMap(Direction exitDirection)
     {
-        this.currentLevel.GetComponent<LevelController>().MovePlayerToMap(exitDirection);
+        LevelController levelController = this.currentLevel.GetComponent<LevelController>();
+
+        Vector2 positionCurrentMap = levelController.levelMaps.FirstOrDefault(x => x.Value.Equals(this.GetCurrentMap())).Key;
+        Vector2 newPosition = positionCurrentMap + exitDirection.ToVector();
+
+        GameObject newMap = levelController.levelMaps[newPosition];
+        GameController.instance.GetPlayer().transform.parent = newMap.transform;
+
+        GameObject newExit = null;
+        foreach (var exit in newMap.transform.FindObjectsWithTag("Exit"))
+        {
+            if (exit.GetComponent<HasDirection>().direction.Equals(exitDirection.Inverse()))
+            {
+                newExit = exit;
+            }
+        }
+
+        Vector2 teleportLocation = (Vector2)newExit.transform.position + exitDirection.ToVector() * 1.4f;
+
+        GameController.instance.GetPlayer().transform.position = teleportLocation;
     }
 }
