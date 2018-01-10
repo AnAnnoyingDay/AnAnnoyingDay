@@ -38,11 +38,16 @@ public class GameController : MonoBehaviour
             this.currentLevel = this.levels[0];
         }
 
-        Instantiate(this.currentLevel);
+        this.currentLevel = Instantiate(this.currentLevel);
+    }
+
+    public GameObject GetPlayer()
+    {
+        return GameObject.FindWithTag("Player");
     }
 
     public void ChangeMap(Direction exitDirection)
     {
-        throw new NotImplementedException();
+        this.currentLevel.GetComponent<LevelController>().MovePlayerToMap(exitDirection);
     }
 }

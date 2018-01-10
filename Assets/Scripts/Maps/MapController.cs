@@ -10,6 +10,7 @@ public class MapController : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public GameObject[] itemPrefabs;
     public bool isBossMap = false;
+    public Vector2 positionOnLevel;
 
     private List<Vector2> availablePositions = new List<Vector2>();
 
