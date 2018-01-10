@@ -19,11 +19,13 @@ public class LevelController : MonoBehaviour
         foreach(BoxController box in this.mapGenerator.finalGrid) {
             Vector2 boxPos = new Vector2(box.X, box.Y);
             GameObject map = this.SpawnRandomMapAt(boxPos);
-
+            MapController mapController = this.GetMapController(map);
             if (box.IsBoss) {
                 map.name += " Boss";
+                mapController.isBoss = true;
             } else if (box.IsKey){
                 map.name += " Key";
+                mapController.isKey = true;
             } else if (boxPos.Equals(this.mapGenerator.GetStartCoordinates())) {
                 map.name += " Start";
             }
