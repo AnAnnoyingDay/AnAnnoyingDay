@@ -54,5 +54,5 @@ MonoBehaviour:
   prefabMaps:
   - {fileID: 1852883079172318, guid: 6c58356ef70cc4cd3af8db9aabf24e60, type: 2}
   numberOfMaps:
-    minimum: 6
-    maximum: 8
+    minimum: 7
+    maximum: 10

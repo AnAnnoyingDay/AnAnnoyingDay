@@ -14,6 +14,8 @@ public class PlayerController : EntityController {
 
     protected Vector2 direction;
 
+    public bool hasKey = false;
+
     public bool isMoving
     {
         get

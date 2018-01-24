@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
         }
 
         this.currentLevel = Instantiate(this.currentLevel);
+        this.GetPlayer().GetComponent<PlayerController>().hasKey = false;
     }
 
     public GameObject GetCurrentMap()
@@ -60,8 +61,6 @@ public class GameController : MonoBehaviour
         Vector2 newPosition = positionCurrentMap + exitDirection.ToVector();
 
         GameObject newMap = levelController.levelMaps[newPosition];
-        GameController.instance.GetPlayer().transform.SetParent(newMap.transform);
-
         GameObject newExit = null;
         foreach (var exit in newMap.transform.FindObjectsWithTag("Exit"))
         {
@@ -71,8 +70,21 @@ public class GameController : MonoBehaviour
             }
         }
 
+        if (this.CannotOpenDoor(newExit))
+        {
+            Debug.Log("Unable to open the door. Key is missing.");
+            return;
+        }
+
+        this.GetPlayer().transform.SetParent(newMap.transform);
         Vector2 teleportLocation = (Vector2)newExit.transform.position + exitDirection.ToVector() * 1.4f;
 
         GameController.instance.GetPlayer().transform.position = teleportLocation;
+    }
+
+    private bool CannotOpenDoor(GameObject door)
+    {
+        return door.gameObject.GetComponentInParent<MapController>().isBoss
+           && !this.GetPlayer().GetComponent<PlayerController>().hasKey;
     }
 }
