@@ -87,10 +87,14 @@ public class PlayerController : EntityController {
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Exit")
-        {
+        if (collider.tag == "Exit") {
             Direction exitDirection = collider.GetComponent<HasDirection>().direction;
             GameController.instance.ChangeMap(exitDirection);
+            return;
+        }
+
+        if (collider.tag == "Key") {
+            GameController.instance.PlayerPickedKey(collider.gameObject);
         }
     }
 

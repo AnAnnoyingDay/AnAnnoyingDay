@@ -17,24 +17,7 @@ public class LevelController : MonoBehaviour
         this.mapGenerator = new GridMapGenerator(this.numberOfMaps.GetFixedRandomValue());
 
         foreach(BoxController box in this.mapGenerator.finalGrid) {
-            Vector2 boxPos = new Vector2(box.X, box.Y);
-            GameObject map = this.SpawnRandomMapAt(boxPos);
-            MapController mapController = this.GetMapController(map);
-            if (box.IsBoss) {
-                map.name += " Boss";
-                mapController.isBoss = true;
-            } else if (box.IsKey){
-                map.name += " Key";
-                mapController.isKey = true;
-            } else if (boxPos.Equals(this.mapGenerator.GetStartCoordinates())) {
-                map.name += " Start";
-            }
-
-            this.RemoveUnusedExits(box, map);
-
-            if (!boxPos.Equals(this.mapGenerator.GetStartCoordinates())) {
-                this.DisableUnusedPlayers(map);
-            }
+            GameObject map = this.SpawnRandomMapFrom(box);
         }
     }
 
@@ -77,15 +60,36 @@ public class LevelController : MonoBehaviour
         return this.prefabMaps[randomMapIndex];
     }
 
-    protected GameObject SpawnRandomMapAt(Vector2 position)
+    protected GameObject SpawnRandomMapFrom(BoxController box)
     {
+        Vector2 position = new Vector2(box.X, box.Y);
+
         GameObject randomMap = this.GetRandomMap();
         Vector2 mapSize = GetMapController(randomMap).mapSize + new Vector2(10, 8);
 
         Vector2 spawnPosition = new Vector2(position.x * mapSize.x, position.y * mapSize.y);
-        GameObject newMap = Instantiate(randomMap, spawnPosition, Quaternion.identity);
+        GameObject newMap = Instantiate(randomMap, spawnPosition, Quaternion.identity, this.transform);
         newMap.name = "Map " + this.levelMaps.Count + " (" + position.x + ", " + position.y + ")";
-        newMap.transform.SetParent(this.transform);
+
+        MapController mapController = this.GetMapController(newMap);
+
+        if (box.IsBoss) {
+            newMap.name += " Boss";
+            mapController.isBoss = true;
+        } else if (box.IsKey) {
+            newMap.name += " Key";
+            mapController.isKey = true;
+        } else if (position.Equals(this.mapGenerator.GetStartCoordinates())) {
+            newMap.name += " Start";
+        }
+
+        this.RemoveUnusedExits(box, newMap); 
+ 
+        if (!position.Equals(this.mapGenerator.GetStartCoordinates())) { 
+            this.DisableUnusedPlayers(newMap); 
+        } 
+
+        mapController.SetupMap();
 
         this.levelMaps.Add(position, newMap);
 

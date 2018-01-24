@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
         }
 
         this.currentLevel = Instantiate(this.currentLevel);
+
         this.GetPlayer().GetComponent<PlayerController>().hasKey = false;
     }
 
@@ -50,7 +51,7 @@ public class GameController : MonoBehaviour
 
     public GameObject GetPlayer()
     {
-        return GameObject.FindWithTag("Player");
+        return GameObject.FindWithTag("Player").gameObject.transform.parent.gameObject;
     }
 
     public void ChangeMap(Direction exitDirection)
@@ -59,7 +60,8 @@ public class GameController : MonoBehaviour
 
         Vector2 positionCurrentMap = levelController.levelMaps.FirstOrDefault(x => x.Value.Equals(this.GetCurrentMap())).Key;
         Vector2 newPosition = positionCurrentMap + exitDirection.ToVector();
-
+        Debug.Log(newPosition);
+        Debug.Log(positionCurrentMap);
         GameObject newMap = levelController.levelMaps[newPosition];
         GameObject newExit = null;
         foreach (var exit in newMap.transform.FindObjectsWithTag("Exit"))
@@ -79,12 +81,18 @@ public class GameController : MonoBehaviour
         this.GetPlayer().transform.SetParent(newMap.transform);
         Vector2 teleportLocation = (Vector2)newExit.transform.position + exitDirection.ToVector() * 1.4f;
 
-        GameController.instance.GetPlayer().transform.position = teleportLocation;
+        this.GetPlayer().transform.position = teleportLocation;
     }
 
     private bool CannotOpenDoor(GameObject door)
     {
         return door.gameObject.GetComponentInParent<MapController>().isBoss
            && !this.GetPlayer().GetComponent<PlayerController>().hasKey;
+    }
+
+    public void PlayerPickedKey(GameObject key)
+    {
+        Destroy(key);
+        this.GetPlayer().GetComponent<PlayerController>().hasKey = true;
     }
 }

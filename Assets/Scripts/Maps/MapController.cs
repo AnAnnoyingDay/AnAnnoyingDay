@@ -22,13 +22,6 @@ public class MapController : MonoBehaviour
         if (this.mapSize.x == 0 || this.mapSize.y == 0) {
             Debug.LogError("The map does not have a size.");
         }
-
-        this.SetupMap();
-    }
-
-    private void FillAvailablePositions()
-    {
-        this.availablePositions.Clear();
     }
 
     public void SetupMap()
@@ -39,6 +32,7 @@ public class MapController : MonoBehaviour
 
         this.CallSpawner(enemySpawners, this.enemiesCount);
         this.CallSpawner(itemSpawners, this.itemCount);
+
         this.CallSpawner(keySpawner, new Count(1, 1));
     }
 
