@@ -127,13 +127,12 @@ public class GridMapGenerator
                         {
                             if (nbBoxPlaced == 1)
                             {
-                                Debug.Log("1st turn 0 created");
                                 Vector2Int coordTarget2 = GetCoordFromExit(emergency, 0);
                                 GenerateBox(source, coordTarget2);
                                 boxAddedThisTurn++;
                                 nbBoxPlaced++;
                             }
-                            Debug.Log("1st turn");
+
                             Vector2Int coordTarget = GetCoordFromExit(emergency, emergencyExit);
                             GenerateBox(source, coordTarget);
                             boxAddedThisTurn++;
@@ -319,7 +318,7 @@ public class GridMapGenerator
     // Display the grid Box
     public void DisplayGrid()
     {
-        Debug.Log("=== FINISHED ===");
+        Debug.Log("=== GRID ===");
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridHeight; y++)
@@ -335,6 +334,7 @@ public class GridMapGenerator
                         Debug.Log("Grid[" + x + "," + y + "] : top(" + Grid[x, y].Exits[0].x + "," + Grid[x, y].Exits[0].y + ") right(" + Grid[x, y].Exits[1].x + "," + Grid[x, y].Exits[1].y + ") bot(" + Grid[x, y].Exits[2].x + "," + Grid[x, y].Exits[2].y + ") left(" + Grid[x, y].Exits[3].x + "," + Grid[x, y].Exits[3].y + ")");
             }
         }
+        Debug.Log("=== END GRID ===");
     }
 
     // Display the grid Box
