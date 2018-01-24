@@ -27,9 +27,7 @@ public abstract class Spawner : MonoBehaviour
             return null;
 
         GameObject selectedPrefab = prefabs[Random.Range(0, prefabs.Length)];
-        GameObject instance = Instantiate(selectedPrefab, this.transform.position, Quaternion.identity);
-
-        instance.transform.SetParent(map.gameObject.transform);
+        GameObject instance = Instantiate(selectedPrefab, this.transform.position, Quaternion.identity, map.gameObject.transform);
 
         Destroy(this);
 
