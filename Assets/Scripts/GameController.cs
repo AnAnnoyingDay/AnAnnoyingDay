@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
 
     public GameObject GetPlayer()
     {
-        return GameObject.FindWithTag("Player").gameObject.transform.parent.gameObject;
+        return GameObject.FindWithTag("Player").gameObject.transform.gameObject;
     }
 
     public void ChangeMap(Direction exitDirection)
