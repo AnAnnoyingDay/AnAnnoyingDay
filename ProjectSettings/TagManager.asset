@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Soda
   - Key
+  - Pathfinding
   layers:
   - Default
   - TransparentFX

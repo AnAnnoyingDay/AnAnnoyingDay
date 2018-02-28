@@ -17,7 +17,7 @@ public class LevelController : MonoBehaviour
         this.mapGenerator = new GridMapGenerator(this.numberOfMaps.GetFixedRandomValue());
 
         foreach(BoxController box in this.mapGenerator.finalGrid) {
-            GameObject map = this.SpawnRandomMapFrom(box);
+            var map = this.SpawnRandomMap(box);
         }
     }
 
@@ -60,7 +60,7 @@ public class LevelController : MonoBehaviour
         return this.prefabMaps[randomMapIndex];
     }
 
-    protected GameObject SpawnRandomMapFrom(BoxController box)
+    protected GameObject SpawnRandomMap(BoxController box)
     {
         Vector2 position = new Vector2(box.X, box.Y);
 
@@ -85,7 +85,7 @@ public class LevelController : MonoBehaviour
 
         this.RemoveUnusedExits(box, newMap); 
  
-        if (!position.Equals(this.mapGenerator.GetStartCoordinates())) { 
+        if (!position.Equals(this.mapGenerator.GetStartCoordinates())) {
             this.DisableUnusedPlayers(newMap); 
         } 
 

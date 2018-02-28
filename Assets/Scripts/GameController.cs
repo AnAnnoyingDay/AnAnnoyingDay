@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Pathfinding;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public List<GameObject> levels;
     public GameObject currentLevel = null;
+    protected AstarPath pathfinding;
 
     public void Awake()
     {
@@ -21,6 +23,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        this.pathfinding = GameObject.FindWithTag("Pathfinding").GetComponent<AstarPath>(); 
         this.ChangeLevel();
 
         DontDestroyOnLoad(gameObject);
@@ -42,16 +45,18 @@ public class GameController : MonoBehaviour
         this.currentLevel = Instantiate(this.currentLevel);
 
         this.GetPlayer().GetComponent<PlayerController>().hasKey = false;
+        this.ReloadPathFinding(this.GetCurrentMap());
     }
 
     public GameObject GetCurrentMap()
     {
+        Debug.Log(this.GetPlayer().transform.parent.name);
         return this.GetPlayer().transform.parent.gameObject;
     }
 
     public GameObject GetPlayer()
     {
-        return GameObject.FindWithTag("Player").gameObject.transform.gameObject;
+        return GameObject.FindWithTag("Player").transform.gameObject;
     }
 
     public void ChangeMap(Direction exitDirection)
@@ -71,7 +76,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (this.CannotOpenDoor(newExit))
+        if (!this.CanOpenDoor(newExit))
         {
             Debug.Log("Unable to open the door. Key is missing.");
             return;
@@ -81,12 +86,35 @@ public class GameController : MonoBehaviour
         Vector2 teleportLocation = (Vector2)newExit.transform.position + exitDirection.ToVector() * 1.4f;
 
         this.GetPlayer().transform.position = teleportLocation;
+        this.ReloadPathFinding(newMap);
     }
 
-    private bool CannotOpenDoor(GameObject door)
+    private void ReloadPathFinding(GameObject newMap)
     {
-        return door.gameObject.GetComponentInParent<MapController>().isBoss
-           && !this.GetPlayer().GetComponent<PlayerController>().hasKey;
+        var enemiesToDisable = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemy in enemiesToDisable)
+        {
+            enemy.GetComponent<AIDestinationSetter>().target = null;
+        }
+
+        Vector2 mapSize = newMap.GetComponent<MapController>().mapSize;
+
+        // Pas top mais on fait avec ça le temps de voir s'il y a mieux :o
+        this.pathfinding.data.gridGraph.center = newMap.transform.position;
+        this.pathfinding.data.gridGraph.SetDimensions((int) mapSize.x * 2, (int) mapSize.y * 2, 1f);
+        this.pathfinding.Scan();
+
+        var enemiesToEnable = newMap.transform.FindObjectsWithTag("Enemy");
+
+        foreach(var enemy in enemiesToEnable) {
+            enemy.GetComponent<AIDestinationSetter>().target = this.GetPlayer().transform;
+        }
+    }
+
+    private bool CanOpenDoor(GameObject door)
+    {
+        return !(door.gameObject.GetComponentInParent<MapController>().isBoss
+            && !this.GetPlayer().GetComponent<PlayerController>().hasKey);
     }
 
     public void PlayerPickedKey(GameObject key)
