@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            this.currentLevel = this.levels[0];
+             this.currentLevel = this.levels[0];
         }
 
         this.currentLevel = Instantiate(this.currentLevel);
@@ -89,25 +89,33 @@ public class GameController : MonoBehaviour
         this.ReloadPathFinding(newMap);
     }
 
+    // TODO fix
     private void ReloadPathFinding(GameObject newMap)
     {
         var enemiesToDisable = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemiesToDisable)
         {
-            enemy.GetComponent<AIDestinationSetter>().target = null;
+            enemy.GetComponent<AIDestinationSetter>().enabled = false;
+            enemy.GetComponent<AILerp>().canMove = false;
+            enemy.GetComponent<AILerp>().canSearch = false;
         }
 
         Vector2 mapSize = newMap.GetComponent<MapController>().mapSize;
 
         // Pas top mais on fait avec ça le temps de voir s'il y a mieux :o
         this.pathfinding.data.gridGraph.center = newMap.transform.position;
-        this.pathfinding.data.gridGraph.SetDimensions((int) mapSize.x * 2, (int) mapSize.y * 2, 1f);
+        this.pathfinding.data.gridGraph.SetDimensions((int) mapSize.x * 3, (int) mapSize.y * 3, 1f);
         this.pathfinding.Scan();
 
         var enemiesToEnable = newMap.transform.FindObjectsWithTag("Enemy");
 
         foreach(var enemy in enemiesToEnable) {
-            enemy.GetComponent<AIDestinationSetter>().target = this.GetPlayer().transform;
+            if (this.GetPlayer().transform != null) {
+                enemy.GetComponent<AIDestinationSetter>().target = this.GetPlayer().transform;
+                enemy.GetComponent<AILerp>().canMove = true;
+                enemy.GetComponent<AILerp>().canSearch = true;
+                enemy.GetComponent<AIDestinationSetter>().enabled = true;
+            }
         }
     }
 
