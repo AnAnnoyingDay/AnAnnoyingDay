@@ -76,14 +76,17 @@ public class LevelController : MonoBehaviour
         if (box.IsBoss) {
             newMap.name += " Boss";
             mapController.isBoss = true;
+            newMap.tag = "MapBoss";
         } else if (box.IsKey) {
             newMap.name += " Key";
             mapController.isKey = true;
+            newMap.tag = "MapKey";
         } else if (position.Equals(this.mapGenerator.GetStartCoordinates())) {
             newMap.name += " Start";
+            newMap.tag = "MapStart";
         }
 
-        this.RemoveUnusedExits(box, newMap); 
+        this.RemoveUnusedExits(box, newMap);
  
         if (!position.Equals(this.mapGenerator.GetStartCoordinates())) {
             this.DisableUnusedPlayers(newMap); 

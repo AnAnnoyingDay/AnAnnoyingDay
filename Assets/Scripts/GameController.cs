@@ -45,18 +45,18 @@ public class GameController : MonoBehaviour
         this.currentLevel = Instantiate(this.currentLevel);
 
         this.GetPlayer().GetComponent<PlayerController>().hasKey = false;
-        this.ReloadPathFinding(this.GetCurrentMap());
+        this.ReloadPathFinding(GameObject.FindWithTag("MapStart"));
     }
 
     public GameObject GetCurrentMap()
     {
-        Debug.Log(this.GetPlayer().transform.parent.name);
         return this.GetPlayer().transform.parent.gameObject;
     }
 
     public GameObject GetPlayer()
     {
-        return GameObject.FindWithTag("Player").transform.gameObject;
+        Debug.Log(GameObject.FindWithTag("Player").transform.parent.gameObject.name);
+        return GameObject.FindWithTag("Player");
     }
 
     public void ChangeMap(Direction exitDirection)
@@ -89,7 +89,6 @@ public class GameController : MonoBehaviour
         this.ReloadPathFinding(newMap);
     }
 
-    // TODO fix
     private void ReloadPathFinding(GameObject newMap)
     {
         var enemiesToDisable = GameObject.FindGameObjectsWithTag("Enemy");
@@ -108,14 +107,11 @@ public class GameController : MonoBehaviour
         this.pathfinding.Scan();
 
         var enemiesToEnable = newMap.transform.FindObjectsWithTag("Enemy");
-
         foreach(var enemy in enemiesToEnable) {
-            if (this.GetPlayer().transform != null) {
-                enemy.GetComponent<AIDestinationSetter>().target = this.GetPlayer().transform;
-                enemy.GetComponent<AILerp>().canMove = true;
-                enemy.GetComponent<AILerp>().canSearch = true;
-                enemy.GetComponent<AIDestinationSetter>().enabled = true;
-            }
+            enemy.GetComponent<AIDestinationSetter>().target = this.GetPlayer().transform;
+            enemy.GetComponent<AILerp>().canMove = true;
+            enemy.GetComponent<AILerp>().canSearch = true;
+            enemy.GetComponent<AIDestinationSetter>().enabled = true;
         }
     }
 
