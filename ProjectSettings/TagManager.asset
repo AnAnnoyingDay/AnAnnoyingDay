@@ -10,6 +10,15 @@ TagManager:
   - Soda
   - Key
   - Pathfinding
+  - Player Manager
+  - Feet
+  - Tooltip
+  - UI_Canvas
+  - Top GUI
+  - Death Panel
+  - HeartDisplay
+  - WeaponSlotImage
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

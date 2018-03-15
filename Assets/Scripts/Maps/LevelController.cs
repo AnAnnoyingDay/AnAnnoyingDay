@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TrollBridge;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +22,7 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    protected void RemoveUnusedExits(BoxController box, GameObject map)
+    protected void DisableUnusedExits(BoxController box, GameObject map)
     {
         List<Direction> boxExits = new List<Direction>();
         foreach (Vector2Int vecExit in box.Exits)
@@ -37,19 +38,34 @@ public class LevelController : MonoBehaviour
         foreach (GameObject exit in map.transform.FindObjectsWithTag("Exit"))
         {
             Direction direction = exit.GetComponent<HasDirection>().direction;
+            var mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera_Follow_Player>();
+            switch (direction) {
+                case Direction.TOP:
+                    mainCamera.topCameraBorder = exit;
+                    break;
+                case Direction.BOTTOM:
+                    mainCamera.bottomCameraBorder = exit;
+                    break;
+                case Direction.LEFT:
+                    mainCamera.leftCameraBorder = exit;
+                    break;
+                case Direction.RIGHT:
+                    mainCamera.rightCameraBorder = exit;
+                    break;
+            } 
 
             if (!boxExits.Contains(direction))
             {
-                Destroy(exit);
+                exit.SetActive(false);
             }
         }
     }
 
     protected void DisableUnusedPlayers(GameObject map) {
-        List<GameObject> players = map.transform.FindObjectsWithTag("Player");
+        List<GameObject> spawners = map.transform.FindObjectsWithTag("PlayerSpawn");
 
-        foreach (GameObject player in players) {
-            Destroy(player);
+        foreach (GameObject spawner in spawners) {
+            Destroy(spawner);
         }
     }
 
@@ -86,12 +102,13 @@ public class LevelController : MonoBehaviour
             newMap.tag = "MapStart";
         }
 
-        this.RemoveUnusedExits(box, newMap);
+        this.DisableUnusedExits(box, newMap);
  
         if (!position.Equals(this.mapGenerator.GetStartCoordinates())) {
             this.DisableUnusedPlayers(newMap); 
-        } 
+        }
 
+        GameObject.FindWithTag("Player").transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         mapController.SetupMap();
 
         this.levelMaps.Add(position, newMap);
