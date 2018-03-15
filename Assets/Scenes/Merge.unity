@@ -157,16 +157,6 @@ Prefab:
       propertyPath: bomb
       value: 
       objectReference: {fileID: 196776, guid: 46b13a009b4ce8b45a670c87d28a8890, type: 2}
-    - target: {fileID: 212478242357241294, guid: 8e17a821a98ad483bbebc671d61ab396,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: -900995045
-      objectReference: {fileID: 0}
-    - target: {fileID: 212478242357241294, guid: 8e17a821a98ad483bbebc671d61ab396,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e17a821a98ad483bbebc671d61ab396, type: 2}
   m_IsPrefabParent: 0
