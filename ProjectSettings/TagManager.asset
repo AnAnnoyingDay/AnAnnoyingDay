@@ -19,6 +19,9 @@ TagManager:
   - HeartDisplay
   - WeaponSlotImage
   - PlayerSpawn
+  - MapStart
+  - MapKey
+  - MapBoss
   layers:
   - Default
   - TransparentFX

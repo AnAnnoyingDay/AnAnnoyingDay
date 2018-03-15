@@ -55,7 +55,6 @@ public class GameController : MonoBehaviour
 
     public GameObject GetPlayer()
     {
-        Debug.Log(GameObject.FindWithTag("Player").transform.parent.gameObject.name);
         return GameObject.FindWithTag("Player");
     }
 
