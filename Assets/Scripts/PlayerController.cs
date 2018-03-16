@@ -24,6 +24,21 @@ public class PlayerController : EntityController {
         }
     }
 
+    public GameObject currentMap;
+
+
+    public PlayerController SetCurrentMap(GameObject currentMap)
+    {
+        this.currentMap = currentMap;
+
+        return this;
+    }
+
+    public GameObject getCurrentMap()
+    {
+        return this.currentMap;
+    }
+
     //void Dash()
     //{
     //    Vector2 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

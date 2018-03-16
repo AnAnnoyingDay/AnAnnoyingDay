@@ -30,7 +30,7 @@ public class MapController : MonoBehaviour
         Spawner[] itemSpawners = GetComponentsInChildren<ItemSpawner>();
         Spawner[] keySpawner = GetComponentsInChildren<KeySpawner>();
 
-        this.CallSpawner(enemySpawners, this.enemiesCount);
+        //this.CallSpawner(enemySpawners, this.enemiesCount);
         this.CallSpawner(itemSpawners, this.itemCount);
 
         this.CallSpawner(keySpawner, new Count(1, 1));

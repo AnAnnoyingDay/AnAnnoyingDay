@@ -38,21 +38,6 @@ public class LevelController : MonoBehaviour
         foreach (GameObject exit in map.transform.FindObjectsWithTag("Exit"))
         {
             Direction direction = exit.GetComponent<HasDirection>().direction;
-            var mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera_Follow_Player>();
-            switch (direction) {
-                case Direction.TOP:
-                    mainCamera.topCameraBorder = exit;
-                    break;
-                case Direction.BOTTOM:
-                    mainCamera.bottomCameraBorder = exit;
-                    break;
-                case Direction.LEFT:
-                    mainCamera.leftCameraBorder = exit;
-                    break;
-                case Direction.RIGHT:
-                    mainCamera.rightCameraBorder = exit;
-                    break;
-            } 
 
             if (!boxExits.Contains(direction))
             {
@@ -61,7 +46,7 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    protected void DisableUnusedPlayers(GameObject map) {
+    protected void DestroyUnusedPlayerSpawners(GameObject map) {
         List<GameObject> spawners = map.transform.FindObjectsWithTag("PlayerSpawn");
 
         foreach (GameObject spawner in spawners) {
@@ -100,15 +85,25 @@ public class LevelController : MonoBehaviour
         } else if (position.Equals(this.mapGenerator.GetStartCoordinates())) {
             newMap.name += " Start";
             newMap.tag = "MapStart";
+
+            GameController.instance.SetupCameraBoundaries(newMap);
         }
 
         this.DisableUnusedExits(box, newMap);
  
         if (!position.Equals(this.mapGenerator.GetStartCoordinates())) {
-            this.DisableUnusedPlayers(newMap); 
+            this.DestroyUnusedPlayerSpawners(newMap); 
+        } else {
+            var player = GameObject.FindWithTag("Player");
+            player.transform.position = newMap.transform
+                .FindObjectsWithTag("PlayerSpawn")
+                .First()
+                .transform
+                .position;
+            
+            player.GetComponent<PlayerController>().SetCurrentMap(newMap);
         }
 
-        GameObject.FindWithTag("Player").transform.position = GameObject.FindWithTag("PlayerSpawn").transform.position;
         mapController.SetupMap();
 
         this.levelMaps.Add(position, newMap);

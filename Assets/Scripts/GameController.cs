@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
+using TrollBridge;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -50,7 +51,7 @@ public class GameController : MonoBehaviour
 
     public GameObject GetCurrentMap()
     {
-        return this.GetPlayer().transform.parent.gameObject;
+        return this.GetPlayer().GetComponent<PlayerController>().getCurrentMap();
     }
 
     public GameObject GetPlayer()
@@ -81,11 +82,12 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        this.GetPlayer().transform.SetParent(newMap.transform);
         Vector2 teleportLocation = (Vector2)newExit.transform.position + exitDirection.ToVector() * 1.4f;
 
         this.GetPlayer().transform.position = teleportLocation;
+        this.GetPlayer().GetComponent<PlayerController>().SetCurrentMap(newMap);
         this.ReloadPathFinding(newMap);
+        this.SetupCameraBoundaries(newMap);
     }
 
     private void ReloadPathFinding(GameObject newMap)
@@ -111,6 +113,29 @@ public class GameController : MonoBehaviour
             enemy.GetComponent<AILerp>().canMove = true;
             enemy.GetComponent<AILerp>().canSearch = true;
             enemy.GetComponent<AIDestinationSetter>().enabled = true;
+        }
+    }
+
+    public void SetupCameraBoundaries(GameObject newMap)
+    {
+        var mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera_Follow_Player>();
+        foreach (GameObject exit in newMap.transform.FindObjectsWithTag("Exit"))
+        {
+            switch (exit.GetComponent<HasDirection>().direction)
+            {
+                case Direction.TOP:
+                    mainCamera.topCameraBorder = exit;
+                    break;
+                case Direction.BOTTOM:
+                    mainCamera.bottomCameraBorder = exit;
+                    break;
+                case Direction.LEFT:
+                    mainCamera.leftCameraBorder = exit;
+                    break;
+                case Direction.RIGHT:
+                    mainCamera.rightCameraBorder = exit;
+                    break;
+            }
         }
     }
 
