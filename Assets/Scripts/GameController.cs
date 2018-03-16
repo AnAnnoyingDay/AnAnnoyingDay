@@ -118,6 +118,7 @@ public class GameController : MonoBehaviour
 
     public void SetupCameraBoundaries(GameObject newMap)
     {
+        return;
         var mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera_Follow_Player>();
         foreach (GameObject exit in newMap.transform.FindObjectsWithTag("Exit"))
         {

@@ -92,7 +92,7 @@ public class LevelController : MonoBehaviour
         this.DisableUnusedExits(box, newMap);
  
         if (!position.Equals(this.mapGenerator.GetStartCoordinates())) {
-            this.DestroyUnusedPlayerSpawners(newMap); 
+            this.DestroyUnusedPlayerSpawners(newMap);
         } else {
             var player = GameObject.FindWithTag("Player");
             player.transform.position = newMap.transform
