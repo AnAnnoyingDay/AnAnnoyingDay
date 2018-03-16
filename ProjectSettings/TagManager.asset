@@ -22,6 +22,7 @@ TagManager:
   - MapStart
   - MapKey
   - MapBoss
+  - PlayerData
   layers:
   - Default
   - TransparentFX

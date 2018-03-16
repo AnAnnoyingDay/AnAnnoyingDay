@@ -150,5 +150,6 @@ public class GameController : MonoBehaviour
     {
         Destroy(key);
         this.GetPlayer().GetComponent<PlayerController>().hasKey = true;
+        GameObject.FindWithTag("PlayerData").GetComponentInChildren<Key>().AddSubtractKeys("Small Key", 1);
     }
 }
