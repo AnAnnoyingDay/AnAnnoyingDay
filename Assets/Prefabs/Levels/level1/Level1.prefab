@@ -52,7 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabMaps:
-  - {fileID: 1852883079172318, guid: 6c58356ef70cc4cd3af8db9aabf24e60, type: 2}
+  - {fileID: 1467130977380542, guid: 51b204fdd73204bc2b0b70f49657e875, type: 2}
+  - {fileID: 1803328051370304, guid: cc11613bfff604c81874767012d4c248, type: 2}
+  - {fileID: 1601136516371378, guid: 81826f0882a9c4a23910eca61263354a, type: 2}
+  - {fileID: 1153517342628886, guid: 3a983461560f5411cb9e1a7e9fa14f3c, type: 2}
+  - {fileID: 1344265624169032, guid: 37f1abce4994b49d5b6ef029338cf3cb, type: 2}
   numberOfMaps:
     minimum: 3
     maximum: 3
