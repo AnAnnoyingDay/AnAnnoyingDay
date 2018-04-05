@@ -173,6 +173,11 @@ Prefab:
       propertyPath: m_TagString
       value: PlayerData
       objectReference: {fileID: 0}
+    - target: {fileID: 212478242357241294, guid: 8e17a821a98ad483bbebc671d61ab396,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e17a821a98ad483bbebc671d61ab396, type: 2}
   m_IsPrefabParent: 0

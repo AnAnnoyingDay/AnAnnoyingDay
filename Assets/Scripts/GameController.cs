@@ -103,8 +103,8 @@ public class GameController : MonoBehaviour
         Vector2 mapSize = newMap.GetComponent<MapController>().mapSize;
 
         // Pas top mais on fait avec ça le temps de voir s'il y a mieux :o
-        this.pathfinding.data.gridGraph.center = new Vector2(newMap.transform.position.x, newMap.transform.position.y - 5);
-        this.pathfinding.data.gridGraph.SetDimensions((int) mapSize.x + 10, (int) mapSize.y + 10, 1f);
+        this.pathfinding.data.gridGraph.center = new Vector2(newMap.transform.position.x, newMap.transform.position.y);
+        this.pathfinding.data.gridGraph.SetDimensions((int) mapSize.x + 12, (int) mapSize.y + 5, 1f);
         this.pathfinding.Scan();
 
         var enemiesToEnable = newMap.transform.FindObjectsWithTag("Enemy");
